@@ -1,0 +1,54 @@
+Docker IMP Commands
+
+yum install docker -y
+service docker start
+
+docker command --help  (see manual about the command)
+
+docker pull nginx
+docker pull openjdk:alpine  (small size images)
+docker pull nginx:alpine
+
+docker ps
+docker ps -a
+docker images
+
+docker build -f Dockerfile -t records .
+
+docker run -d -p 8085:8085 --name my-site records-image  (run image to create container with specified name)
+docker run -d -p 8085:8085 -p 9090:8085 --name my-site records-image
+docker run -d -p 80:80 --name my-site nginx:latest
+docker run -d -p 81:80 --name my-site-copy --volumes-from my-site nginx:latest  (share data between containers using volume)
+docker run -d -p 80:80 --name my-site -v $(pwd):/usr/share/nginx/html nginx:latest (share data between host and container using volume)
+
+docker exec -it my-site bash (enter into the container using container id and use bash)
+
+docker tag records:latest records:1 (tagging images)
+
+docker rm records
+docker rm -f records (force remove)
+docker rm image image-name
+docker rmi -f image-name
+
+docker login
+Username :
+Password :
+
+docker tag local-image:tagname new-repo:tagname
+docker push new-repo:tagname
+
+docker tag my-web:1 onkar1996/my-sample  (create tag from your image to push to docker hub)
+docker push onkar1996/my-sample:tagname  (push image to docker hub)
+
+docker pull onkar1996/my-sample:latest  (pull your own image from docker hub)
+
+docke inspect container-name  (get all the data about your container)
+
+docker logs 1ee1006c8739   (pass container id)
+
+Sample Dockerfile for spring boot
+
+FROM openjdk:8
+ADD target/records.jar records.jar  (set docker directory - WORKDIR /api)
+EXPOSE 8085
+ENTRYPOINT ["java","-jar","records.jar"]  (OR - CMD java -jar records.jar)
