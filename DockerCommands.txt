@@ -42,7 +42,7 @@ docker push onkar1996/my-sample:tagname  (push image to docker hub)
 
 docker pull onkar1996/my-sample:latest  (pull your own image from docker hub)
 
-docke inspect container-name  (get all the data about your container)
+docker inspect container-name  (get all the data about your container)
 
 docker logs 1ee1006c8739   (pass container id)
 
